@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9369f478-d68d-4ebe-ab00-19a6e6a890fd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/auth0_test/smauth/auth0backend.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth0_test/smauth/static/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth0_test/smauth/templates/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth0_test/smauth/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth0_test/smauth/templates/layout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth0_test/auth0_test/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/auto0-test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/auth0-test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,30 +18,45 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/auth0_test/smauth/views.py">
+        <entry file="file://$PROJECT_DIR$/auth0_test/smauth/auth0backend.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/auth0_test/smauth/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+              <folding>
+                <element signature="e#317#360#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,15 +103,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>AUTHENTICATION_BACKENDS</find>
+      <find>auth0login</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -108,28 +125,18 @@
         <option value="$PROJECT_DIR$/auth0_test/templates/index.html" />
         <option value="$PROJECT_DIR$/auth0_test/templates/dashboard.html" />
         <option value="$PROJECT_DIR$/auth0_test/smauth/views.py" />
-        <option value="$PROJECT_DIR$/auth0_test/auth0_test/settings.py" />
         <option value="$PROJECT_DIR$/auth0_test/auth0_test/urls.py" />
         <option value="$PROJECT_DIR$/auth0_test/smauth/templates/layout.html" />
         <option value="$PROJECT_DIR$/auth0_test/smauth/static/app.css" />
         <option value="$PROJECT_DIR$/auth0_test/smauth/templates/index.html" />
         <option value="$PROJECT_DIR$/auth0_test/smauth/templates/dashboard.html" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/auto0-test.iml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/auth0_test/auth0_test/settings.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="18" />
-    <option name="y" value="49" />
+    <option name="x" value="314" />
+    <option name="y" value="23" />
     <option name="width" value="1606" />
     <option name="height" value="898" />
   </component>
@@ -143,42 +150,28 @@
         <subPane>
           <expand>
             <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
+              <item name="auth0-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth0-test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
+              <item name="auth0-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth0-test" type="462c0819:PsiDirectoryNode" />
               <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
+              <item name="auth0-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth0-test" type="462c0819:PsiDirectoryNode" />
               <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
               <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
-              <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
-              <item name="smauth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
+              <item name="auth0-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth0-test" type="462c0819:PsiDirectoryNode" />
               <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
               <item name="smauth" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto0-test" type="462c0819:PsiDirectoryNode" />
-              <item name="auth0_test" type="462c0819:PsiDirectoryNode" />
-              <item name="smauth" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auto0-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth0-test" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -230,16 +223,19 @@
       <workItem from="1555895112153" duration="2622000" />
       <workItem from="1555899740775" duration="120000" />
       <workItem from="1555909953143" duration="5000" />
+      <workItem from="1556610468570" duration="1304000" />
+      <workItem from="1556845635105" duration="2201000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2747000" />
+    <option name="totallyTimeSpent" value="6252000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="49" width="1606" height="898" extended-state="0" />
+    <frame x="314" y="23" width="1606" height="898" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25639385" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26278773" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -266,27 +262,13 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/auth0_test/smauth/auth0backend.py">
+    <entry file="file://$PROJECT_DIR$/auth0_test/smauth/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="315">
+          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
@@ -318,12 +300,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auth0_test/smauth/views.py">
+    <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+          <folding>
+            <element signature="e#317#360#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auth0_test/auth0_test/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auth0_test/smauth/auth0backend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
