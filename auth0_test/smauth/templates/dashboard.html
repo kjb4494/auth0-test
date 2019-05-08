@@ -6,6 +6,7 @@
     <img class="avatar" src="{{ auth0User.extra_data.picture }}"/>
     <h2>Welcome {{ user.username }}</h2>
     <pre>{{ userdata }}</pre>
+    <a class="btn btn-primary btn-lg btn-logout btn-block" href="https://dev-d9lwdkbd.auth0.com/authorize?response_type=code&client_id=3OCfUZQsv5Xk9XnwbrB2lePmLjwEk7iC&redirect_uri=http://localhost:3000/token&scope=read:messages&audience=http://localhost:3010/api/private">Get API Access Token</a>
     <a class="btn btn-primary btn-lg btn-logout btn-block" href="/logout">Logout</a>
 </div>
 {% endblock content %}
