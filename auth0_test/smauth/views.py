@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from urllib.parse import urlencode
 import requests
 import json
+from pprint import pprint as prt
 
 
 # Create your views here.
@@ -41,20 +42,34 @@ def api_test(request):
     return render(request, 'api_test.html')
 
 
-def token(response):
-    code = response.GET.get('code')
-    url = 'https://dev-d9lwdkbd.auth0.com/oauth/token'
+def token(request):
+    user = request.user
+    auth0user = user.social_auth.get(provider='auth0')
+    print(auth0user.uid)
+    code = request.GET.get('code')
+    url = 'https://' + settings.SOCIAL_AUTH_AUTH0_DOMAIN + '/oauth/token'
     header = {'content-type': "application/x-www-form-urlencoded"}
     payload = {
         'grant_type': 'authorization_code',
-        'client_id': '3OCfUZQsv5Xk9XnwbrB2lePmLjwEk7iC',
-        'client_secret': 'RVHpLv5a-Mi5bJALEsCfr6MDRneVcvsd73erfECjtnuFAeHW2H9d0oPKi5KkZTyX',
+        'client_id': settings.SOCIAL_AUTH_AUTH0_KEY,
+        'client_secret': settings.SOCIAL_AUTH_AUTH0_SECRET,
         'code': code,
         'redirect_uri': 'http://localhost:3000/token'
     }
 
     res = requests.post(url=url, data=payload, headers=header)
     result = ''
-    for value in res.json():
-        result += value + ': ' + str(res.json()[value]) + '<br>'
+    res_dict = res.json()
+    for value in res_dict:
+        result += value + ': ' + str(res_dict[value]) + '<br>'
+    result += '<p>---API Message---<br>'
+    if res_dict.get('access_token') is not None:
+        res = requests.get(
+            url='http://localhost:3010/api/private',
+            headers={
+                'authorization': 'Bearer ' + res_dict.get('access_token')
+            }
+        )
+        for value in res.json():
+            result += res.json()[value]
     return HttpResponse(result)
