@@ -8,7 +8,6 @@ from .models import Token
 from datetime import datetime, timedelta
 import requests
 import json
-import pytz
 
 
 # Create your views here.
@@ -44,58 +43,66 @@ def api_test(request):
     return render(request, 'api_test.html')
 
 
-def token(request):
+def smbot_api(request):
     try:
         user = request.user.social_auth.get(provider='auth0')
     except Exception as e:
         return HttpResponse('social_auth Error: ' + str(e))
     tk = Token.objects.filter(uid=user.uid)
     if not tk.exists():
-        # Get Access Token
-        code = request.GET.get('code')
-        url = 'https://' + settings.SOCIAL_AUTH_AUTH0_DOMAIN + '/oauth/token'
-        header = {'content-type': "application/x-www-form-urlencoded"}
-        payload = {
-            'grant_type': 'authorization_code',
-            'client_id': settings.SOCIAL_AUTH_AUTH0_KEY,
-            'client_secret': settings.SOCIAL_AUTH_AUTH0_SECRET,
-            'code': code,
-            'redirect_uri': 'http://localhost:3000/token'
-        }
-        res = requests.post(url=url, data=payload, headers=header)
-        access_token_data = res.json()
-        access_token = access_token_data.get('access_token')
-        expires = datetime.now(tz=pytz.UTC) + timedelta(seconds=access_token_data.get('expires_in'))
-        token_type = access_token_data.get('token_type')
-        tk = Token(
-            uid=user.uid,
-            access_token=access_token,
-            expires=expires,
-            token_type=token_type
-        )
-        tk.save()
-        display_result = 'Access Token is created!<br>'
-    else:
-        access_token = tk[0].access_token
-        expires = tk[0].expires
-        token_type = tk[0].token_type
-        display_result = 'You already exist access token!<br>'
+        return HttpResponseRedirect(settings.REQUEST_ACCESS_TOKEN_URL)
 
-    display_result += '-' * 60 + '<br>' + \
-                      'access_token: ' + access_token + '<br>' + \
-                      'expires: ' + str(expires) + '<br>' + \
-                      'token_type: ' + token_type + '<br>' + \
-                      '-' * 60 + '<p>'
+    access_token = tk[0].access_token
+    expires = tk[0].expires
+    token_type = tk[0].token_type
+
+    display_result = '-' * 60 + '<br>' + \
+                     'access_token: ' + access_token + '<br>' + \
+                     'expires: ' + str(expires) + '<br>' + \
+                     'token_type: ' + token_type + '<br>' + \
+                     '-' * 60 + '<p>'
     # API Test
-    if access_token is not None:
-        display_result += '--- API Message ---<br>'
-        res = requests.get(
-            url='http://localhost:3010/api/private',
-            headers={
-                'authorization': 'Bearer ' + access_token
-            }
-        )
-        for key, value in res.json().items():
-            display_result += key + ': ' + value + '<p>'
+    if access_token is None:
+        return HttpResponse('access_token is Null!')
+
+    display_result += '--- API Message ---<br>'
+    res = requests.get(
+        url=settings.RESOURCE_SERVER_URL + '/api/private-scoped',
+        headers={
+            'authorization': 'Bearer ' + access_token
+        }
+    )
+    for key, value in res.json().items():
+        display_result += key + ': ' + value + '<p>'
     display_result += '<a href="http://localhost:3000/dashboard/">돌아가기</a>'
     return HttpResponse(display_result)
+
+
+def create_token(request):
+    try:
+        user = request.user.social_auth.get(provider='auth0')
+    except Exception as e:
+        return HttpResponse('social_auth Error: ' + str(e))
+    code = request.GET.get('code')
+    url = 'https://' + settings.SOCIAL_AUTH_AUTH0_DOMAIN + '/oauth/token'
+    header = {'content-type': "application/x-www-form-urlencoded"}
+    payload = {
+        'grant_type': 'authorization_code',
+        'client_id': settings.SOCIAL_AUTH_AUTH0_KEY,
+        'client_secret': settings.SOCIAL_AUTH_AUTH0_SECRET,
+        'code': code,
+        'redirect_uri': 'http://localhost:3000/token'
+    }
+    res = requests.post(url=url, data=payload, headers=header)
+    access_token_data = res.json()
+    access_token = access_token_data.get('access_token')
+    expires = datetime.now() + timedelta(seconds=access_token_data.get('expires_in'))
+    token_type = access_token_data.get('token_type')
+    tk = Token(
+        uid=user.uid,
+        access_token=access_token,
+        expires=expires,
+        token_type=token_type
+    )
+    tk.save()
+    return HttpResponseRedirect(settings.SMBOT_API_URL)

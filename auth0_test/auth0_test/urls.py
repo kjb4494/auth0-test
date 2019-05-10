@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('', include('social_django.urls')),
     path('api_test/', views.api_test),
-    path('token/', views.token),
+    path('token/', views.create_token),
+    path('smbot/', views.smbot_api),
     path('admin/', admin.site.urls)
 ]

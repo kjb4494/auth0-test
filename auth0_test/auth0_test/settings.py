@@ -107,16 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
+
+# 데이터베이스 Timezone 때문에 위치에 맞게 바꿔줘야함!
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
-
 USE_L10N = True
-
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -143,4 +140,8 @@ AUTHENTICATION_BACKENDS = {
 LOGIN_URL = '/login/auth0'
 LOGIN_REDIRECT_URL = '/dashboard'
 
-SESSION_COOKIE_SAMESITE = None
+# SESSION_COOKIE_SAMESITE = None
+
+RESOURCE_SERVER_URL = 'http://localhost:3010'
+REQUEST_ACCESS_TOKEN_URL = 'https://dev-d9lwdkbd.auth0.com/authorize?response_type=code&client_id=3OCfUZQsv5Xk9XnwbrB2lePmLjwEk7iC&redirect_uri=http://localhost:3000/token&scope=read:messages&audience=http://localhost:3010/api/private'
+SMBOT_API_URL = 'http://localhost:3000/smbot'
