@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 import requests
 import json
 import pytz
-from pprint import pprint as prt
 
 
 # Create your views here.
@@ -97,5 +96,6 @@ def token(request):
             }
         )
         for key, value in res.json().items():
-            display_result += key + ': ' + value + '<br>'
+            display_result += key + ': ' + value + '<p>'
+    display_result += '<a href="http://localhost:3000/dashboard/">돌아가기</a>'
     return HttpResponse(display_result)
