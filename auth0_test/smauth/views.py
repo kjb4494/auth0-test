@@ -44,24 +44,33 @@ def api_test(request):
 
 
 def smbot_api(request):
+    # 인증 오류 대비
     try:
         user = request.user.social_auth.get(provider='auth0')
     except Exception as e:
         return HttpResponse('social_auth Error: ' + str(e))
+
+    # 토큰이 없으면 발급
     tk = Token.objects.filter(uid=user.uid)
     if not tk.exists():
         return HttpResponseRedirect(settings.REQUEST_ACCESS_TOKEN_URL)
 
+    # 만료된 토큰이면 새로 발급
     access_token = tk[0].access_token
     expires = tk[0].expires
     token_type = tk[0].token_type
+    if expires <= datetime.now():
+        return HttpResponseRedirect(settings.REQUEST_ACCESS_TOKEN_URL)
 
+    # --- 엑세스 토큰 출력 ---
     display_result = '-' * 60 + '<br>' + \
                      'access_token: ' + access_token + '<br>' + \
                      'expires: ' + str(expires) + '<br>' + \
                      'token_type: ' + token_type + '<br>' + \
                      '-' * 60 + '<p>'
+
     # API Test
+    # --- 위 과정이 제대로 수행됐다면 발동하지않는 조건문 ---
     if access_token is None:
         return HttpResponse('access_token is Null!')
 
@@ -96,7 +105,8 @@ def create_token(request):
     res = requests.post(url=url, data=payload, headers=header)
     access_token_data = res.json()
     access_token = access_token_data.get('access_token')
-    expires = datetime.now() + timedelta(seconds=access_token_data.get('expires_in'))
+    # 시스템적 지연을 고려해 5초 여유를 줌
+    expires = datetime.now() + timedelta(seconds=access_token_data.get('expires_in') - 5)
     token_type = access_token_data.get('token_type')
     tk = Token(
         uid=user.uid,
