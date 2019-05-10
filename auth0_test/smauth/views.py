@@ -4,8 +4,11 @@ from django.contrib.auth import logout as log_out
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from urllib.parse import urlencode
+from .models import Token
+from datetime import datetime, timedelta
 import requests
 import json
+import pytz
 from pprint import pprint as prt
 
 
@@ -43,33 +46,56 @@ def api_test(request):
 
 
 def token(request):
-    user = request.user
-    auth0user = user.social_auth.get(provider='auth0')
-    print(auth0user.uid)
-    code = request.GET.get('code')
-    url = 'https://' + settings.SOCIAL_AUTH_AUTH0_DOMAIN + '/oauth/token'
-    header = {'content-type': "application/x-www-form-urlencoded"}
-    payload = {
-        'grant_type': 'authorization_code',
-        'client_id': settings.SOCIAL_AUTH_AUTH0_KEY,
-        'client_secret': settings.SOCIAL_AUTH_AUTH0_SECRET,
-        'code': code,
-        'redirect_uri': 'http://localhost:3000/token'
-    }
+    try:
+        user = request.user.social_auth.get(provider='auth0')
+    except Exception as e:
+        return HttpResponse('social_auth Error: ' + str(e))
+    tk = Token.objects.filter(uid=user.uid)
+    if not tk.exists():
+        # Get Access Token
+        code = request.GET.get('code')
+        url = 'https://' + settings.SOCIAL_AUTH_AUTH0_DOMAIN + '/oauth/token'
+        header = {'content-type': "application/x-www-form-urlencoded"}
+        payload = {
+            'grant_type': 'authorization_code',
+            'client_id': settings.SOCIAL_AUTH_AUTH0_KEY,
+            'client_secret': settings.SOCIAL_AUTH_AUTH0_SECRET,
+            'code': code,
+            'redirect_uri': 'http://localhost:3000/token'
+        }
+        res = requests.post(url=url, data=payload, headers=header)
+        access_token_data = res.json()
+        access_token = access_token_data.get('access_token')
+        expires = datetime.now(tz=pytz.UTC) + timedelta(seconds=access_token_data.get('expires_in'))
+        token_type = access_token_data.get('token_type')
+        tk = Token(
+            uid=user.uid,
+            access_token=access_token,
+            expires=expires,
+            token_type=token_type
+        )
+        tk.save()
+        display_result = 'Access Token is created!<br>'
+    else:
+        access_token = tk[0].access_token
+        expires = tk[0].expires
+        token_type = tk[0].token_type
+        display_result = 'You already exist access token!<br>'
 
-    res = requests.post(url=url, data=payload, headers=header)
-    result = ''
-    res_dict = res.json()
-    for value in res_dict:
-        result += value + ': ' + str(res_dict[value]) + '<br>'
-    result += '<p>---API Message---<br>'
-    if res_dict.get('access_token') is not None:
+    display_result += '-' * 60 + '<br>' + \
+                      'access_token: ' + access_token + '<br>' + \
+                      'expires: ' + str(expires) + '<br>' + \
+                      'token_type: ' + token_type + '<br>' + \
+                      '-' * 60 + '<p>'
+    # API Test
+    if access_token is not None:
+        display_result += '--- API Message ---<br>'
         res = requests.get(
             url='http://localhost:3010/api/private',
             headers={
-                'authorization': 'Bearer ' + res_dict.get('access_token')
+                'authorization': 'Bearer ' + access_token
             }
         )
-        for value in res.json():
-            result += res.json()[value]
-    return HttpResponse(result)
+        for key, value in res.json().items():
+            display_result += key + ': ' + value + '<br>'
+    return HttpResponse(display_result)
