@@ -49,7 +49,6 @@ def smbot_api(request):
         user = request.user.social_auth.get(provider='auth0')
     except Exception as e:
         return HttpResponse('social_auth Error: ' + str(e))
-
     # 토큰이 없으면 발급
     tk = Token.objects.filter(uid=user.uid)
     if not tk.exists():
@@ -74,15 +73,17 @@ def smbot_api(request):
     if access_token is None:
         return HttpResponse('access_token is Null!')
 
+    query_text = '음악 큐'
     display_result += '--- API Message ---<br>'
     res = requests.get(
-        url=settings.RESOURCE_SERVER_URL + '/api/private-scoped',
+        url=settings.AUDIENCE_URI + 'api/v1/smbotText/?query_text=' + query_text,
         headers={
             'authorization': 'Bearer ' + access_token
         }
     )
     for key, value in res.json().items():
-        display_result += key + ': ' + value + '<p>'
+        if value is not None:
+            display_result += key + ': ' + str(value) + '<br>'
     display_result += '<a href="http://localhost:3000/dashboard/">돌아가기</a>'
     return HttpResponse(display_result)
 

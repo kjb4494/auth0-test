@@ -17,7 +17,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = '*dn4z%$4b6-d1+epmb=hd1m3g#$*1*%&%x+4m_8*cvakee%=7q'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -73,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'auth0_test.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -83,7 +80,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -102,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -136,12 +131,19 @@ AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend'
 }
 
-
 LOGIN_URL = '/login/auth0'
 LOGIN_REDIRECT_URL = '/dashboard'
 
 # SESSION_COOKIE_SAMESITE = None
 
-RESOURCE_SERVER_URL = 'http://localhost:3010'
-REQUEST_ACCESS_TOKEN_URL = 'https://dev-d9lwdkbd.auth0.com/authorize?response_type=code&client_id=3OCfUZQsv5Xk9XnwbrB2lePmLjwEk7iC&redirect_uri=http://localhost:3000/token&scope=read:messages&audience=http://localhost:3010/api/private'
+
+AUDIENCE_URI = 'http://localhost:3010/'
+GET_TOKEN_URI = 'http://localhost:3000/token'
+REQUEST_ACCESS_TOKEN_URL = \
+    'https://' + SOCIAL_AUTH_AUTH0_DOMAIN + '/authorize?response_type=code' \
+    '&client_id=' + SOCIAL_AUTH_AUTH0_KEY + \
+    '&redirect_uri=' + GET_TOKEN_URI + \
+    '&scope=read:messages' \
+    '&audience=' + AUDIENCE_URI
+
 SMBOT_API_URL = 'http://localhost:3000/smbot'
